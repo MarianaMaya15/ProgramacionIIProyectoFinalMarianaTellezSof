@@ -1,5 +1,5 @@
 package co.uniquindio.eventos.controller;
-
+ 
 import co.edu.uniquindio.eventos.Navigator;
 import co.edu.uniquindio.eventos.app.MainApp;
 import co.edu.uniquindio.eventos.model.Administrador;
