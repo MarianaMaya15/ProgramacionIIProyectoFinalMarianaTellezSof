@@ -1,4 +1,4 @@
-package co.edu.uniquindio.eventos.controller;
+package co.uniquindio.eventos.controller;
 
 import co.edu.uniquindio.eventos.app.MainApp;
 import co.edu.uniquindio.eventos.model.SesionActual;
