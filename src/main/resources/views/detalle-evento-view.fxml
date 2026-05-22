@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="16.0" styleClass="section-wrapper" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.eventos.controller.EventoController">
+    <children>
+        <Label fx:id="nombreEventoLabel" styleClass="section-title" text="Nombre evento" />
+        <HBox spacing="12.0">
+            <children>
+                <Label fx:id="categoriaLabel" styleClass="detail-chip" text="Categoria" />
+                <Label fx:id="ciudadLabel" styleClass="detail-chip" text="Ciudad" />
+                <Label fx:id="fechaLabel" styleClass="detail-chip" text="Fecha" />
+            </children>
+        </HBox>
+        <Label fx:id="descripcionLabel" styleClass="detail-text" text="Descripcion" wrapText="true" />
+        <Label fx:id="recintoLabel" styleClass="detail-text" text="Recinto" wrapText="true" />
+        <Label fx:id="politicasLabel" styleClass="detail-text" text="Politicas" wrapText="true" />
+        <VBox spacing="10.0" styleClass="detail-panel escenario-box">
+            <children>
+                <Label styleClass="panel-title escenario-title" text="Escenario" />
+            </children>
+            <padding>
+                <Insets bottom="12.0" left="18.0" right="18.0" top="12.0" />
+            </padding>
+        </VBox>
+        <HBox spacing="16.0">
+            <children>
+                <ScrollPane fitToWidth="true" HBox.hgrow="ALWAYS" prefHeight="340.0" styleClass="detail-panel">
+                    <content>
+                        <VBox fx:id="mapaZonasContainer" spacing="12.0">
+                            <padding>
+                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+                <VBox spacing="10.0" styleClass="detail-panel" prefWidth="330.0">
+                    <children>
+                        <Label styleClass="panel-title" text="Resumen de compra" />
+                        <Label styleClass="detail-text" text="Evento seleccionado:" />
+                        <Label fx:id="eventoResumenLabel" styleClass="detail-chip" text="Evento" wrapText="true" />
+                        <ListView fx:id="resumenEntradasListView" prefHeight="180.0" />
+                        <Label styleClass="detail-text" text="Cantidad de entradas:" />
+                        <Label fx:id="cantidadEntradasLabel" styleClass="panel-title" text="0" />
+                        <Label styleClass="detail-text" text="Subtotal entradas:" />
+                        <Label fx:id="subtotalEntradasLabel" styleClass="total-label" text="0" />
+                    </children>
+                    <padding>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
+        <HBox spacing="12.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#continuarCompra" styleClass="primary-button" text="Continuar compra" />
+                <Button mnemonicParsing="false" onAction="#limpiarSeleccion" styleClass="secondary-button" text="Limpiar seleccion" />
+                <Button mnemonicParsing="false" onAction="#volverCartelera" styleClass="secondary-button" text="Volver" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

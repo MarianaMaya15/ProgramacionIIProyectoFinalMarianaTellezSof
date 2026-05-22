@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="14.0" styleClass="section-wrapper" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.eventos.controller.HistorialController">
+    <children>
+        <Label styleClass="section-title" text="Historial de compras" />
+        <HBox spacing="10.0">
+            <children>
+                <TextField fx:id="eventoFiltroField" promptText="Filtrar por evento" />
+                <ComboBox fx:id="estadoFiltroComboBox" prefWidth="180.0" promptText="Estado" />
+                <DatePicker fx:id="fechaFiltroDatePicker" promptText="Fecha" />
+                <Button mnemonicParsing="false" onAction="#filtrarCompras" styleClass="secondary-button" text="Filtrar" />
+                <Button mnemonicParsing="false" onAction="#limpiarFiltros" styleClass="secondary-button" text="Limpiar" />
+            </children>
+        </HBox>
+        <TableView fx:id="comprasTableView" prefHeight="240.0">
+            <columns>
+                <TableColumn fx:id="eventoColumn" prefWidth="210.0" text="Evento" />
+                <TableColumn fx:id="fechaColumn" prefWidth="190.0" text="Fecha" />
+                <TableColumn fx:id="estadoColumn" prefWidth="110.0" text="Estado" />
+                <TableColumn fx:id="entradasColumn" prefWidth="100.0" text="Entradas" />
+                <TableColumn fx:id="totalColumn" prefWidth="120.0" text="Total" />
+            </columns>
+        </TableView>
+        <TextArea fx:id="detalleArea" editable="false" prefHeight="140.0" promptText="Detalle de compra seleccionada." wrapText="true" />
+        <HBox spacing="10.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#verDetalle" styleClass="secondary-button" text="Ver comprobante" />
+                <Button mnemonicParsing="false" onAction="#descargarCsv" styleClass="primary-button" text="Descargar CSV" />
+                <Button mnemonicParsing="false" onAction="#generarPdfSimulado" styleClass="primary-button" text="Generar PDF" />
+                <Button mnemonicParsing="false" onAction="#volverCartelera" styleClass="secondary-button" text="Volver" />
+            </children>
+            <padding>
+                <Insets top="4.0" />
+            </padding>
+        </HBox>
+    </children>
+</VBox>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="16.0" styleClass="section-wrapper" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.eventos.controller.CompraController">
+    <children>
+        <Label styleClass="section-title" text="Resumen de compra" />
+        <GridPane hgap="14.0" vgap="12.0">
+            <children>
+                <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label fx:id="usuarioLabel" styleClass="detail-text" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="Evento:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label fx:id="eventoLabel" styleClass="detail-text" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            </children>
+        </GridPane>
+        <HBox spacing="18.0">
+            <children>
+                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label styleClass="panel-title" text="Entradas seleccionadas" />
+                        <ListView fx:id="entradasListView" prefHeight="150.0" />
+                    </children>
+                </VBox>
+                <VBox spacing="10.0" styleClass="detail-panel">
+                    <children>
+                        <Label styleClass="panel-title" text="Servicios y pago" />
+                        <CheckBox fx:id="vipCheckBox" mnemonicParsing="false" text="Servicio VIP" />
+                        <CheckBox fx:id="seguroCheckBox" mnemonicParsing="false" text="Seguro de cancelacion" />
+                        <CheckBox fx:id="parqueaderoCheckBox" mnemonicParsing="false" text="Parqueadero" />
+                        <CheckBox fx:id="accesoPreferencialCheckBox" mnemonicParsing="false" text="Acceso preferencial" />
+                        <CheckBox fx:id="merchandisingCheckBox" mnemonicParsing="false" text="Merchandising" />
+                        <Button mnemonicParsing="false" onAction="#aplicarServicios" styleClass="secondary-button" text="Aplicar servicios" />
+                        <ComboBox fx:id="metodoPagoComboBox" prefWidth="180.0" promptText="Metodo de pago" />
+                        <ComboBox fx:id="promocionComboBox" prefWidth="220.0" promptText="Promocion activa" />
+                        <Button mnemonicParsing="false" onAction="#aplicarPromocion" styleClass="secondary-button" text="Aplicar promocion" />
+                        <Label text="Subtotal entradas:" />
+                        <Label fx:id="subtotalLabel" styleClass="detail-text" text="0" />
+                        <Label text="Servicios adicionales:" />
+                        <Label fx:id="serviciosLabel" styleClass="detail-text" text="0" />
+                        <Label text="Descuento promocional:" />
+                        <Label fx:id="descuentoLabel" styleClass="detail-text" text="0" />
+                        <Label text="Total final:" />
+                        <Label fx:id="totalLabel" styleClass="total-label" text="0" />
+                    </children>
+                    <padding>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
+        <HBox spacing="12.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#pagarCompra" styleClass="primary-button" text="Pagar" />
+                <Button mnemonicParsing="false" onAction="#confirmarCompra" styleClass="primary-button" text="Confirmar compra" />
+                <Button mnemonicParsing="false" onAction="#cancelarCompra" styleClass="secondary-button" text="Cancelar compra" />
+                <Button mnemonicParsing="false" onAction="#volverDetalle" styleClass="secondary-button" text="Volver" />
+            </children>
+        </HBox>
+        <TextArea fx:id="comprobanteArea" editable="false" prefHeight="170.0" promptText="Aqui se mostrara el comprobante simple." wrapText="true" />
+    </children>
+</VBox>

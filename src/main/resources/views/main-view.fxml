@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="760.0" prefWidth="1200.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.eventos.controller.MainController">
+    <top>
+        <VBox spacing="0.0">
+            <HBox alignment="CENTER_LEFT" spacing="18.0" styleClass="top-bar">
+                <padding>
+                    <Insets bottom="14.0" left="22.0" right="22.0" top="14.0" />
+                </padding>
+                <Label styleClass="logo-label" text="EVENTOS UQ" />
+                <Button mnemonicParsing="false" onAction="#mostrarCartelera" styleClass="menu-button" text="Cartelera" />
+                <Button mnemonicParsing="false" onAction="#mostrarServicios" styleClass="menu-button" text="Servicios" />
+                <Button mnemonicParsing="false" onAction="#mostrarPromociones" styleClass="menu-button" text="Promociones" />
+                <Button mnemonicParsing="false" onAction="#mostrarPerfil" styleClass="menu-button" text="Mi perfil" />
+                <Button mnemonicParsing="false" onAction="#mostrarHistorial" styleClass="menu-button" text="Historial" />
+                <Button fx:id="adminButton" mnemonicParsing="false" onAction="#mostrarAdmin" styleClass="menu-button" text="Admin" />
+                <Button mnemonicParsing="false" onAction="#cerrarSesion" styleClass="menu-button" text="Cerrar sesion" />
+                <Label fx:id="usuarioLabel" styleClass="user-label" text="Usuario" />
+            </HBox>
+            <HBox styleClass="hero-bar">
+                <padding>
+                    <Insets bottom="22.0" left="26.0" right="26.0" top="22.0" />
+                </padding>
+                <VBox spacing="8.0">
+                    <Label styleClass="hero-title" text="Tu cartelera de eventos en una sola vista" />
+                    <Label styleClass="hero-subtitle" text="Consulta funciones, elige zona, compra y administra eventos sin salir de la app." />
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <StackPane fx:id="contenidoPane" styleClass="content-pane">
+            <padding>
+                <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+            </padding>
+        </StackPane>
+    </center>
+    <bottom>
+        <HBox styleClass="footer-bar">
+            <padding>
+                <Insets bottom="10.0" left="24.0" right="24.0" top="10.0" />
+            </padding>
+            <Label fx:id="notificacionLabel" styleClass="footer-text" text="Sin notificaciones nuevas." />
+        </HBox>
+    </bottom>
+</BorderPane>
