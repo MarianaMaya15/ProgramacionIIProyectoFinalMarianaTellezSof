@@ -5,7 +5,7 @@ import co.edu.uniquindio.eventos.model.Usuario;
 import co.edu.uniquindio.eventos.util.AlertUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextField; 
 
 import java.util.UUID;
 
