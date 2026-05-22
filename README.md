@@ -618,6 +618,3 @@ La compra puede estar creada, pagada, confirmada, cancelada, reembolsada o en in
 Se eligió para evitar muchos condicionales dentro de la clase `Compra` y manejar mejor el comportamiento según el estado.
 
 ---
-
-# Proyecto Final PGII  
-## Plataforma de Gestión de Eventos y Venta de Entradas
