@@ -1,620 +1,320 @@
-# Proyecto Final PGII  
-## Plataforma de Gestión de Eventos y Venta de Entradas
+# Proyecto Final PGII
 
-**Programación II - Universidad del Quindío**
+## Plataforma de Gestion de Eventos y Venta de Entradas
 
-**Integrantes:**  
-Juan José Téllez Sánchez  
-Sofía Avilés Díaz  
-Mariana Rodríguez Maya  
+Aplicacion de escritorio construida en `Java 17`, `JavaFX 17` y `Maven` para administrar eventos, recintos, zonas, asientos, compras, pagos e incidencias. El sistema incluye flujo para usuarios compradores y un panel administrativo con metricas operativas, gestion de disponibilidad y generacion de reportes.
 
----
+## Integrantes
+
+- Juan Jose Tellez Sanchez
+- Sofia Aviles Diaz
+- Mariana Rodriguez Maya
 
 ## Diagrama de clases
 
 ![Diagrama de clases](./Diagrama_Clases_Eventos_UQ.png)
 
----
+## Descripcion breve del proyecto
 
-# 1. Pensamiento Computacional RF-043
+El proyecto modela una plataforma de eventos donde un usuario puede iniciar sesion, consultar la cartelera, seleccionar entradas, agregar servicios adicionales, pagar y consultar su historial de compras. En paralelo, el administrador puede crear y actualizar eventos, gestionar recintos, zonas y asientos, registrar incidencias y consultar metricas de ventas, ocupacion y cancelaciones.
 
-## 1.1 ¿Qué se solicita finalmente?
+## Tecnologias
 
-Se solicita diseñar, antes de programar, una plataforma orientada a objetos para gestionar eventos y vender entradas.
+- Java 17
+- JavaFX 17.0.10
+- Maven
+- FXML + CSS
+- JUnit 5
 
-El sistema debe permitir que un usuario pueda:
+## Estructura general del proyecto
 
-- Consultar eventos.
-- Revisar disponibilidad.
-- Seleccionar entradas.
-- Realizar una compra.
-- Pagar de forma simulada.
-- Recibir notificaciones sobre cambios importantes.
+- `src/main/java/co/edu/uniquindio/eventos/model`: entidades principales del sistema.
+- `src/main/java/co/edu/uniquindio/eventos/model/enums`: enumeraciones de estados.
+- `src/main/java/co/edu/uniquindio/eventos/service`: logica principal de la aplicacion.
+- `src/main/java/co/edu/uniquindio/eventos/controller`: controladores de las vistas JavaFX.
+- `src/main/java/co/edu/uniquindio/eventos/patterns`: implementacion de los patrones de diseno.
+- `src/main/java/co/edu/uniquindio/eventos/repository/DatosPrueba.java`: datos iniciales de prueba.
+- `src/main/resources/views`: vistas FXML.
+- `src/main/resources/styles`: estilos CSS.
 
-También debe permitir que un administrador gestione:
+## Compilacion y ejecucion
 
-- Eventos.
-- Recintos.
-- Zonas.
-- Asientos.
-- Incidencias.
-- Métricas.
+### Guia de ejecucion en IntelliJ IDEA
 
-El objetivo principal de esta primera entrega es dejar bien organizado el diseño del sistema antes de pasar a la codificación en Java.
+La forma recomendada de ejecutar este proyecto es desde `IntelliJ IDEA`, ya que el entorno reconoce automaticamente la estructura Maven y facilita la configuracion de JavaFX.
 
----
+### Requisitos para ejecutar
 
-## 1.2 ¿Qué información es relevante?
+Para ejecutar el proyecto se necesita:
 
-La información más importante del sistema es:
+- IntelliJ IDEA Community o Ultimate.
+- JDK 17 o superior.
+- Maven configurado en el proyecto.
+- JavaFX configurado mediante las dependencias del `pom.xml`.
 
-- **Usuarios y administradores:** permiten diferenciar quién compra entradas y quién administra la plataforma.
-- **Eventos:** son el elemento principal que se ofrece en el sistema.
-- **Recintos, zonas y asientos:** permiten organizar el lugar donde se realiza cada evento.
-- **Compras y entradas:** representan el proceso de venta y el acceso que recibe el usuario.
-- **Pagos y métodos de pago:** permiten simular pagos con diferentes opciones.
-- **Tarifas y servicios adicionales:** ayudan a calcular el valor final de la compra.
-- **Incidencias, reportes y métricas:** ayudan al administrador a revisar problemas y resultados del sistema.
+### Como abrir el proyecto en IntelliJ IDEA
 
----
+1. Abrir IntelliJ IDEA.
+2. Seleccionar `Open`.
+3. Buscar la carpeta raiz del proyecto.
+4. Seleccionar la carpeta donde esta el archivo `pom.xml`.
+5. Esperar a que IntelliJ cargue las dependencias de Maven.
+6. Verificar que el proyecto reconozca el JDK.
 
-## 1.3 ¿Cómo se agrupa la información relevante?
+### Configurar el JDK
 
-La información se organiza en clases. Cada clase representa una parte importante de la plataforma y tiene una responsabilidad clara.
+En IntelliJ IDEA:
+
+1. Ir a `File`.
+2. Entrar a `Project Structure`.
+3. En `Project SDK`, seleccionar `JDK 17` o superior.
+4. Aplicar los cambios.
+
+Si IntelliJ muestra un aviso como `JDK missing`, se debe seleccionar un JDK instalado o descargar uno desde el mismo IntelliJ.
+
+### Configurar la clase principal
+
+Para ejecutar la aplicacion correctamente:
+
+1. Ir a la parte superior derecha de IntelliJ.
+2. Abrir el menu de configuraciones.
+3. Seleccionar `Edit Configurations`.
+4. Presionar el boton `+`.
+5. Elegir `Application`.
+6. En `Main class`, colocar:
+
+```text
+co.edu.uniquindio.eventos.app.Launcher
+```
+
+7. En `Working directory`, dejar la carpeta raiz del proyecto.
+8. Guardar la configuracion con `Apply` y luego `OK`.
+9. Presionar el boton verde de ejecutar.
+
+### Clase principal del proyecto
+
+La clase que se debe ejecutar es:
+
+```text
+co.edu.uniquindio.eventos.app.Launcher
+```
+
+Esta clase llama internamente a `MainApp`.
+
+No se recomienda ejecutar directamente `MainApp`, porque en algunos entornos JavaFX puede generar errores relacionados con el runtime.
+
+### Ejecucion con Maven
+
+Tambien se puede ejecutar desde consola con:
+
+```bash
+mvn clean compile
+mvn javafx:run
+```
+
+Y si se desea correr las pruebas:
+
+```bash
+mvn test
+```
+
+## Datos de prueba inicializados
+
+Los datos se cargan automaticamente desde `DatosPrueba.getInstancia()` al iniciar `MainApp`.
 
 ### Usuarios
 
-- `Usuario`
-- `Administrador`
+- `U01` Mariana Rodriguez - `mariana@eventosuq.com` - clave `1234`
+- `U02` Sofia Aviles - `sofia@eventosuq.com` - clave `1234`
+- `U03` Juan Tellez - `juan@eventosuq.com` - clave `1234`
 
-Estas clases manejan el acceso al sistema y las acciones según el tipo de usuario.
+### Administrador
 
-### Eventos y espacios
+- `A01` Admin Eventos - `admin@eventosuq.com` - clave `admin123`
 
-- `Evento`
-- `Recinto`
-- `Zona`
-- `Asiento`
-- `Tarifa`
+### Eventos iniciales
 
-Estas clases organizan los eventos, el lugar donde se realizan, sus zonas, asientos y precios.
+- `E01` Noche de Rock
+- `E02` Festival de Danza
+- `E03` Obra La Casa
+- `E04` Stand Up PGII
+- `E05` Muestra Coral
 
-### Ventas
+### Recintos, zonas y asientos
 
-- `Compra`
-- `Entrada`
-- `Pago`
+- Cada evento se crea con un recinto asociado.
+- Cada recinto inicializa 3 zonas: `VIP`, `Preferencial` y `General`.
+- Las capacidades base son `12`, `12` y `24` asientos respectivamente.
+- Los asientos se generan automaticamente por zona en `DatosPrueba`.
 
-Estas clases controlan la compra, las entradas generadas y el pago asociado.
+### Compras y pagos de prueba
 
-### Servicios adicionales
+- `COM-001`: compra confirmada para Mariana con pago `PAG-001` por tarjeta.
+- `COM-002`: compra pagada para Sofia con pago `PAG-002`.
 
-- `ServicioAdicional`
-- `ServicioBase`
-- `ServicioDecorator`
-- `ServicioVIP`
-- `SeguroCancelacion`
-- `Parqueadero`
+### Incidencias iniciales
 
-Estas clases permiten agregar beneficios o servicios extra a una compra.
+- `INC-001`: silla bloqueada.
+- `INC-002`: cambio de horario.
 
-### Notificaciones
+## Reportes operativos
 
-- `Notificador`
-- `Observador`
-- `NotificacionUsuario`
-- `NotificacionAdministrador`
+El sistema incluye generacion de reportes desde el historial del usuario:
 
-Estas clases permiten avisar cuando una compra o un evento cambia.
+- `ReporteCSV`: exporta el historial de compras a un archivo `.csv`.
+- `ReportePDF`: genera un reporte PDF simulado en un archivo `.txt`.
+- `ReporteExternoAdapter`: adapta un servicio externo de reporte plano al contrato interno `Reporte`.
 
-### Reportes
+Los reportes se disparan desde `HistorialController` y se generan en archivos temporales del sistema mediante `Files.createTempFile(...)`.
 
-- `Reporte`
-- `ReportePDF`
-- `ReporteCSV`
-- `ReporteExternoAdapter`
+## Patrones de diseno implementados
 
-Estas clases permiten generar reportes o adaptar reportes externos.
+### 1. Singleton
 
-### Estados
+- Requisito que resuelve: control centralizado de disponibilidad y reservas de asientos.
+- Problema: varias instancias administrando el mismo asiento podrian provocar estados inconsistentes.
+- Proposito: garantizar un unico punto de acceso al gestor de reservas.
+- Solucion: `GestorReservas` expone `getInstancia()` y concentra `reservarAsiento`, `liberarAsiento` y `venderAsiento`.
 
-- `EstadoCompraInterface`
-- `EstadoCreada`
-- `EstadoPagada`
-- `EstadoConfirmada`
-- `EstadoCancelada`
-- `EstadoReembolsada`
-- `EstadoIncidencia`
+```java
+public static GestorReservas getInstancia() {
+    if (instancia == null) {
+        instancia = new GestorReservas();
+    }
+    return instancia;
+}
+```
 
-Estas clases controlan el comportamiento de una compra según su estado.
+### 2. Factory Method
 
-### Administración
+- Requisito que resuelve: creacion estandarizada de eventos.
+- Problema: la logica de creacion y publicacion inicial del evento no debe repetirse en controladores y servicios.
+- Proposito: encapsular la construccion de eventos segun su categoria.
+- Solucion: `EventoFactory.crearEvento(...)` crea el objeto y decide si debe publicarse de inmediato.
 
-- `Incidencia`
-- `PanelMetricas`
+### 3. Builder
 
-Estas clases permiten registrar problemas y consultar información de ventas u ocupación.
+- Requisito que resuelve: construccion progresiva de una compra.
+- Problema: una compra se arma por pasos con datos basicos, entradas y servicios.
+- Proposito: simplificar la construccion de objetos complejos.
+- Solucion: `ReservaBuilder` permite encadenar `conDatosBasicos`, `agregarEntrada`, `agregarServicio` y `construir`.
 
----
+### 4. Decorator
 
-## 1.4 ¿Qué funcionalidades se solicitan?
+- Requisito que resuelve: adicion dinamica de beneficios a una compra.
+- Problema: extras como VIP, seguro, parqueadero o merchandising no deben inflar la clase `Compra`.
+- Proposito: agregar comportamiento y costo adicional sin modificar la clase base.
+- Solucion: `ServicioBase` se envuelve con decoradores como `ServicioVIP`, `SeguroCancelacion`, `Parqueadero`, `AccesoPreferencial` y `Merchandising`.
 
-Las funcionalidades principales del sistema son:
+### 5. Facade
 
-- Registrar e iniciar sesión de usuarios.
-- Consultar eventos disponibles.
-- Consultar información de cada evento.
-- Gestionar eventos, recintos, zonas y asientos desde el rol administrador.
-- Crear compras con una o varias entradas.
-- Calcular el total de una compra.
-- Agregar tarifas y servicios adicionales.
-- Procesar pagos simulados con diferentes métodos de pago.
-- Cambiar el estado de una compra.
-- Notificar cambios importantes a usuarios o administradores.
-- Registrar incidencias.
-- Consultar métricas y reportes.
+- Requisito que resuelve: simplificacion del proceso de compra.
+- Problema: comprar implica reservar asientos, crear entradas, calcular total, pagar, confirmar o cancelar.
+- Proposito: ofrecer una interfaz de alto nivel para el flujo de compra.
+- Solucion: `CompraFacade` coordina `GestorReservas`, `ReservaBuilder`, `Pago` y transiciones de la compra.
 
----
+```java
+public boolean pagarCompra(Compra compra, MetodoPago metodoPago) {
+    Pago pago = new Pago("PAG-" + UUID.randomUUID().toString().substring(0, 5),
+            compra.calcularTotal(), metodoPago);
+    boolean pagado = compra.pagar(pago);
+    if (pagado) {
+        compra.getEntradas().forEach(entrada -> gestorReservas.venderAsiento(entrada.getAsiento()));
+    }
+    return pagado;
+}
+```
 
-## 1.5 ¿Cómo se distribuyen las funcionalidades?
+### 6. Adapter
 
-La distribución de responsabilidades queda así:
+- Requisito que resuelve: integracion con servicios externos de reporte.
+- Problema: un proveedor externo no expone la misma interfaz usada dentro del sistema.
+- Proposito: hacer compatible un servicio legado o externo con el contrato interno.
+- Solucion: `ReporteExternoAdapter` implementa `Reporte` y delega en `ServicioReporteExterno`.
 
-- `Usuario`: registro, inicio de sesión, consulta de eventos y consulta de compras.
-- `Administrador`: gestión de eventos, recintos, zonas, asientos, incidencias y métricas.
-- `Evento`: información principal del evento.
-- `Recinto`: lugar donde se realiza el evento.
-- `Zona`: división del recinto con capacidad y precio base.
-- `Asiento`: puesto disponible, reservado, vendido o bloqueado.
-- `Compra`: proceso principal de compra.
-- `Entrada`: acceso generado por la compra.
-- `Pago`: pago asociado a la compra.
-- `MetodoPago`: permite manejar diferentes formas de pago.
-- `ServicioAdicional`: permite agregar servicios extra.
-- `EstadoCompraInterface`: controla los estados de una compra.
-- `Notificador`: envía avisos sobre cambios.
-- `Reporte`: genera reportes internos o externos.
-- `Incidencia`: registra problemas del sistema.
-- `PanelMetricas`: permite consultar datos administrativos.
+### 7. Strategy
 
----
+- Requisito que resuelve: soporte para distintos metodos de pago.
+- Problema: cada medio de pago tiene una forma distinta de procesar la transaccion.
+- Proposito: intercambiar algoritmos de pago sin cambiar la clase `Pago`.
+- Solucion: la interfaz `MetodoPago` es implementada por `PagoTarjeta`, `PagoPSE` y `PagoNequi`.
 
-## 1.6 ¿Qué debo hacer para probar las funcionalidades?
+```java
+public boolean procesarPago() {
+    boolean aprobado = metodoPago.procesar(valor);
+    estado = aprobado ? EstadoPago.APROBADO : EstadoPago.RECHAZADO;
+    return aprobado;
+}
+```
 
-Para probar el sistema se pueden realizar pruebas sencillas desde una clase `Main` o con pruebas unitarias.
+### 8. Observer
 
-### Pruebas propuestas
+- Requisito que resuelve: notificacion de cambios importantes.
+- Problema: usuarios y administradores deben enterarse de incidencias o novedades sin acoplarse a cada modulo.
+- Proposito: desacoplar el emisor de eventos de los receptores.
+- Solucion: `Notificador` mantiene una lista de `Observador` y propaga mensajes a `NotificacionUsuario` y `NotificacionAdministrador`.
 
-1. **Registro de usuario**  
-   Crear un usuario con datos válidos y verificar que quede registrado.
+### 9. State
 
-2. **Consulta de eventos**  
-   Listar eventos publicados y revisar que la información sea correcta.
+- Requisito que resuelve: manejo del ciclo de vida de la compra.
+- Problema: una compra cambia su comportamiento segun el estado actual.
+- Proposito: evitar condicionales extensos y mover la logica de transicion a objetos estado.
+- Solucion: `Compra` delega en `EstadoCompraInterface` y clases concretas como `EstadoCreada`, `EstadoPagada`, `EstadoConfirmada`, `EstadoCancelada`, `EstadoReembolsada` y `EstadoIncidenciaCompra`.
 
-3. **Creación de evento**  
-   Crear un evento con recinto, zonas y asientos asociados.
+## Principios SOLID aplicados
 
-4. **Compra con entradas**  
-   Crear una compra y comprobar que genere una o varias entradas.
+### S - Single Responsibility Principle
 
-5. **Pago simulado**  
-   Procesar un pago con tarjeta, PSE o Nequi y validar el resultado.
+- `CompraService` coordina operaciones de compra, mientras `AdminService` concentra tareas administrativas y `UsuarioService` gestiona autenticacion y CRUD de usuarios.
+- `ReporteCSV` y `ReportePDF` solo se ocupan de exportar reportes.
 
-6. **Servicios adicionales**  
-   Agregar VIP, parqueadero o seguro y verificar que cambie el total.
+### O - Open/Closed Principle
 
-7. **Cambio de estado**  
-   Pasar una compra por estados como creada, pagada, confirmada o cancelada.
+- Para agregar un nuevo metodo de pago basta con crear otra implementacion de `MetodoPago`.
+- Para agregar un nuevo tipo de reporte basta con implementar `Reporte`.
+- Para agregar un nuevo servicio adicional basta con extender el esquema de decoradores.
 
-8. **Notificación**  
-   Cambiar una compra o evento y comprobar que se llame al notificador.
+### L - Liskov Substitution Principle
 
-9. **Incidencia y reporte**  
-   Registrar una incidencia y generar un reporte simple.
+- `Administrador` puede usarse donde se espera un `Usuario`.
+- `ReporteCSV`, `ReportePDF` y `ReporteExternoAdapter` sustituyen correctamente la abstraccion `Reporte`.
+- `PagoTarjeta`, `PagoPSE` y `PagoNequi` sustituyen a `MetodoPago`.
 
----
+### I - Interface Segregation Principle
 
-## 1.7 ¿Qué puedo reutilizar?
+- El proyecto usa interfaces pequenas y enfocadas: `MetodoPago`, `Reporte` y `Observador`.
+- Cada cliente depende solo del contrato que realmente necesita.
 
-Se pueden reutilizar clases, interfaces y patrones para evitar repetir lógica.
+### D - Dependency Inversion Principle
 
-Por ejemplo:
+- `Usuario.descargarReporteCompras(Reporte reporte)` depende de la abstraccion `Reporte`, no de una clase concreta.
+- `Pago` depende de `MetodoPago`, no de `PagoTarjeta`, `PagoPSE` o `PagoNequi`.
+- `Compra` depende de `EstadoCompraInterface` para cambiar su comportamiento segun el estado.
 
-- Todos los métodos de pago usan la interfaz `MetodoPago`.
-- Todos los reportes usan la interfaz `Reporte`.
-- Todos los servicios adicionales usan la interfaz `ServicioAdicional`.
-- Los estados de compra se manejan mediante `EstadoCompraInterface`.
+## Flujo funcional resumido
 
-### Interfaces reutilizables
+1. El usuario inicia sesion desde `login-view.fxml`.
+2. `MainApp` carga `DatosPrueba` y abre la cartelera.
+3. El usuario selecciona evento, entradas y servicios adicionales.
+4. `CompraService` delega el flujo a `CompraFacade`.
+5. El pago se procesa con una estrategia concreta.
+6. El historial permite ver detalle y descargar reportes.
+7. El administrador puede crear eventos, gestionar zonas y asientos, registrar incidencias y revisar metricas.
 
-- `MetodoPago`
-- `ServicioAdicional`
-- `Observador`
-- `Reporte`
-- `EstadoCompraInterface`
+## Historial de Git
 
-### Clases de soporte reutilizables
+Para la revision del proyecto se debe evidenciar:
 
-- `GestorReservas`
-- `ReservaBuilder`
-- `CompraFacade`
-- `EventoFactory`
+- commits propios por integrante,
+- commits frecuentes,
+- mensajes descriptivos,
+- trabajo en ramas individuales antes de integrar a `main`.
 
-### Patrones reutilizables
+Comandos utiles para revisar el historial:
 
-- `Singleton`
-- `Factory Method`
-- `Builder`
-- `Decorator`
-- `Facade`
-- `Adapter`
-- `Strategy`
-- `Observer`
-- `State`
+```bash
+git log --oneline --graph --all
+git branch -a
+```
 
-### Enumeraciones reutilizables
-
-- `EstadoEvento`
-- `EstadoAsiento`
-- `EstadoCompra`
-- `EstadoEntrada`
-- `EstadoPago`
-- `EstadoIncidencia`
-
----
-
-## 1.8 ¿Cómo pruebo/escribo la solución en Java?
-
-La solución se puede escribir en Java creando primero las clases principales del diagrama y después agregando los patrones.
-
-No es necesario tener una interfaz gráfica para probar esta primera parte. Se pueden hacer pruebas desde una clase `Main` o con pruebas unitarias.
-
-### Pasos iniciales en Java
-
-1. Crear las clases principales:
-   - `Usuario`
-   - `Administrador`
-   - `Evento`
-   - `Recinto`
-   - `Zona`
-   - `Asiento`
-   - `Compra`
-   - `Entrada`
-   - `Pago`
-   - `Tarifa`
-   - `Incidencia`
-
-2. Crear las enumeraciones:
-   - `EstadoEvento`
-   - `EstadoAsiento`
-   - `EstadoCompra`
-   - `EstadoEntrada`
-   - `EstadoPago`
-   - `EstadoIncidencia`
-
-3. Crear las interfaces:
-   - `MetodoPago`
-   - `ServicioAdicional`
-   - `Observador`
-   - `Reporte`
-   - `EstadoCompraInterface`
-
-4. Implementar los patrones de diseño.
-
-5. Probar cada clase con ejemplos sencillos.
-
-### Ejemplos de prueba
-
-- Crear un `Usuario`.
-- Crear un `Evento`.
-- Asociar un `Evento` con un `Recinto`.
-- Agregar `Zona` y `Asiento`.
-- Crear una `Compra`.
-- Agregar una `Entrada`.
-- Procesar un `Pago`.
-- Cambiar el estado de una compra.
-- Agregar un servicio adicional.
-- Enviar una notificación.
-- Generar un reporte.
-
----
-
-# 2. Diagrama UML de Clases RF-044
-
-El diagrama UML representa las entidades principales del sistema y las clases de soporte donde se aplican los patrones de diseño.
-
-También muestra:
-
-- Relaciones.
-- Multiplicidades.
-- Atributos principales.
-- Métodos principales.
-- Interfaces.
-- Enumeraciones.
-- Anotaciones de patrones.
-
----
-
-## 2.1 Entidades incluidas
-
-Las entidades principales del sistema son:
-
-- `Usuario`
-- `Administrador`
-- `Evento`
-- `Recinto`
-- `Zona`
-- `Asiento`
-- `Compra`
-- `Entrada`
-- `Pago`
-- `Tarifa`
-- `Incidencia`
-
----
-
-## 2.2 Clases de soporte incluidas
-
-Las clases de soporte son:
-
-- `GestorReservas`
-- `EventoFactory`
-- `ReservaBuilder`
-- `CompraFacade`
-- `PanelMetricas`
-- `Notificador`
-- `ReportePDF`
-- `ReporteCSV`
-- `ReporteExternoAdapter`
-- `ServicioReporteExterno`
-
----
-
-## 2.3 Interfaces incluidas
-
-Las interfaces usadas en el diseño son:
-
-- `MetodoPago`
-- `ServicioAdicional`
-- `Observador`
-- `Reporte`
-- `EstadoCompraInterface`
-
----
-
-## 2.4 Relaciones principales del UML
-
-### Herencia
-
-- `Administrador` hereda de `Usuario`.
-
-Esto significa que el administrador también es un usuario, pero con permisos adicionales.
-
-### Asociación
-
-- `Usuario` realiza `Compra`.
-- `Evento` se realiza en `Recinto`.
-- `Compra` tiene `Pago`.
-- `Entrada` pertenece a `Zona`.
-- `Entrada` usa `Asiento`.
-
-### Composición
-
-- `Recinto` contiene `Zona`.
-- `Zona` contiene `Asiento`.
-- `Compra` genera `Entrada`.
-
-Estas relaciones indican que una clase contiene elementos que dependen de ella.
-
-### Agregación
-
-- `Notificador` agrega `Observador`.
-- `Compra` agrega `ServicioAdicional`.
-
-Estas relaciones indican que una clase puede usar o agrupar objetos, pero estos pueden existir de forma más independiente.
-
-### Dependencia
-
-- `Pago` usa `MetodoPago`.
-- `ReporteExternoAdapter` adapta `ServicioReporteExterno`.
-- `CompraFacade` usa otras clases para simplificar el proceso de compra.
-
----
-
-## 2.5 Enumeraciones
-
-Las enumeraciones se usan para limitar los valores posibles de algunos estados.
-
-### EstadoEvento
-
-- `BORRADOR`
-- `PUBLICADO`
-- `PAUSADO`
-- `CANCELADO`
-- `FINALIZADO`
-
-### EstadoAsiento
-
-- `DISPONIBLE`
-- `RESERVADO`
-- `VENDIDO`
-- `BLOQUEADO`
-
-### EstadoCompra
-
-- `CREADA`
-- `PAGADA`
-- `CONFIRMADA`
-- `CANCELADA`
-- `REEMBOLSADA`
-- `INCIDENCIA`
-
-### EstadoEntrada
-
-- `ACTIVA`
-- `USADA`
-- `ANULADA`
-
-### EstadoPago
-
-- `PENDIENTE`
-- `APROBADO`
-- `RECHAZADO`
-- `REEMBOLSADO`
-
-### EstadoIncidencia
-
-- `ABIERTA`
-- `EN_PROCESO`
-- `RESUELTA`
-- `CERRADA`
-
----
-
-# 3. Documento de Patrones Elegidos RF-049, RF-050 y RF-051
-
-Para cumplir con la entrega se eligieron tres patrones creacionales, tres estructurales y tres de comportamiento.
-
-También se incluyen los patrones obligatorios:
-
-- `Singleton`
-- `Decorator`
-- `Strategy`
-
----
-
-## 3.1 Patrones creacionales RF-049
-
-### 3.1.1 Singleton
-
-**Clase donde se aplica:** `GestorReservas`
-
-**Requisitos que resuelve:** RF-005 y RF-049
-
-**Problema que resuelve:**  
-La reserva y liberación de asientos debe controlarse desde un punto común para evitar inconsistencias.
-
-**Por qué se eligió:**  
-Se eligió porque `GestorReservas` debe comportarse como un controlador único de disponibilidad. Así se evita que existan varios objetos intentando manejar reservas al mismo tiempo.
-
----
-
-### 3.1.2 Factory Method
-
-**Clase donde se aplica:** `EventoFactory`
-
-**Requisitos que resuelve:** RF-013 y RF-049
-
-**Problema que resuelve:**  
-La creación de eventos puede cambiar según el tipo de evento.
-
-**Por qué se eligió:**  
-Se eligió para no poner toda la lógica de creación directamente en otras clases. Así la creación de eventos queda más ordenada.
-
----
-
-### 3.1.3 Builder
-
-**Clase donde se aplica:** `ReservaBuilder`
-
-**Requisitos que resuelve:** RF-006 y RF-049
-
-**Problema que resuelve:**  
-Una compra se arma por pasos: usuario, evento, entradas y servicios adicionales.
-
-**Por qué se eligió:**  
-Se eligió porque permite construir la compra de forma ordenada y más fácil de leer.
-
----
-
-## 3.2 Patrones estructurales RF-050
-
-### 3.2.1 Decorator
-
-**Clase donde se aplica:**  
-`ServicioAdicional`, `ServicioDecorator`, `ServicioVIP`, `SeguroCancelacion`, `Parqueadero`
-
-**Requisitos que resuelve:** RF-009 y RF-050
-
-**Problema que resuelve:**  
-Una compra puede recibir servicios adicionales como VIP, seguro o parqueadero.
-
-**Por qué se eligió:**  
-Se eligió porque permite agregar extras sin modificar la clase `Compra` cada vez que aparezca un nuevo servicio.
-
----
-
-### 3.2.2 Facade
-
-**Clase donde se aplica:** `CompraFacade`
-
-**Requisitos que resuelve:** RF-006 y RF-050
-
-**Problema que resuelve:**  
-El proceso de compra usa varias clases y puede volverse difícil de manejar.
-
-**Por qué se eligió:**  
-Se eligió para simplificar el flujo mediante `CompraFacade`, que coordina las operaciones principales.
-
----
-
-### 3.2.3 Adapter
-
-**Clase donde se aplica:** `ReporteExternoAdapter`
-
-**Requisitos que resuelve:** RF-011 y RF-050
-
-**Problema que resuelve:**  
-El sistema puede necesitar reportes de un servicio externo con una estructura diferente.
-
-**Por qué se eligió:**  
-Se eligió para adaptar ese servicio sin cambiar la interfaz `Reporte`.
-
----
-
-## 3.3 Patrones de comportamiento RF-051
-
-### 3.3.1 Strategy
-
-**Clase donde se aplica:**  
-`MetodoPago`, `PagoTarjeta`, `PagoPSE`, `PagoNequi`
-
-**Requisitos que resuelve:** RF-007 y RF-051
-
-**Problema que resuelve:**  
-El pago puede hacerse con tarjeta, PSE o Nequi.
-
-**Por qué se eligió:**  
-Se eligió porque permite cambiar el método de pago sin modificar la clase `Pago`.
-
----
-
-### 3.3.2 Observer
-
-**Clase donde se aplica:**  
-`Notificador`, `Observador`, `NotificacionUsuario`, `NotificacionAdministrador`
-
-**Requisitos que resuelve:** RF-017 y RF-051
-
-**Problema que resuelve:**  
-Usuarios y administradores deben enterarse de cambios en compras o eventos.
-
-**Por qué se eligió:**  
-Se eligió porque permite notificar a varios interesados sin acoplar demasiado las clases principales.
-
----
-
-### 3.3.3 State
-
-**Clase donde se aplica:**  
-`EstadoCompraInterface`, `EstadoCreada`, `EstadoPagada`, `EstadoConfirmada`, `EstadoCancelada`, `EstadoReembolsada`, `EstadoIncidencia`
-
-**Requisitos que resuelve:** RF-008 y RF-051
-
-**Problema que resuelve:**  
-La compra puede estar creada, pagada, confirmada, cancelada, reembolsada o en incidencia.
-
-**Por qué se eligió:**  
-Se eligió para evitar muchos condicionales dentro de la clase `Compra` y manejar mejor el comportamiento según el estado.
-
----
+En el repositorio existen ramas remotas de trabajo y la revision final se apoyara en el historial de Git.
